@@ -11,7 +11,7 @@
   <title>Clean Blog - Start Bootstrap Theme</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="{{asset("css/app.css")}}" rel="stylesheet">
+  <link href="{{asset('css/app.css')}}" rel="stylesheet">
 
   <!-- Custom fonts for this template -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -36,50 +36,40 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href={{route("posts.index")}}>Home</a>
-          </li>         
+            <a class="nav-link" href="{{route("posts.index")}}">Home</a> 
+          </li>       
         </ul>
       </div>
     </div>
   </nav>
 
   <!-- Page Header -->
-  <header class="masthead" style="background-image: url({{asset("img/home-bg.jpg")}})">
+  <header class="masthead" style="background-image: url({{asset("img/post-bg.jpg")}})">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="site-heading">
-            <h1>Boolpress</h1>
-            <span class="subheading">A Blog Theme by Start Bootstrap</span>
+          <div class="post-heading">
+            <h1>{{$article->title}}</h1>
+            <span class="meta">Posted by
+              <a href="#">{{$article->user->name}}</a>
+            </span>
           </div>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- Main Content -->
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        @foreach ($articles as $article)
-          <div class="post-preview">
-            <a href="{{route("posts.show", $article->slug)}}">
-              <h2 class="post-title">
-                {{$article->title}}
-              </h2>
-              <h3 class="post-subtitle">
-                {{$article->content}}
-              </h3>
-            </a>
-            <p class="post-meta">Posted by
-              <a href="#">{{$article->user->name}}</a>
-            </p>
-          </div>
-        @endforeach
+  <!-- Post Content -->
+  <article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <p>{{$article->content}}</p>
+        </div>
       </div>
     </div>
-  </div>
+  </article>
 
   <hr>
 
@@ -114,7 +104,7 @@
               </a>
             </li>
           </ul>
-          <p class="copyright text-muted">Copyright &copy; Andrea Contestabile @ Boolean 2020</p>
+          <p class="copyright text-muted">Copyright &copy; Your Website 2020</p>
         </div>
       </div>
     </div>

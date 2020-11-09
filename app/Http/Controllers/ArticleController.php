@@ -13,4 +13,11 @@ class ArticleController extends Controller
 
         return view("guests.posts.index", compact("articles"));
     }
+
+    public function show($slug)
+    {
+        $article = Article::where("slug", $slug)->first();
+
+        return view("guests.posts.show", compact("article"));
+    }
 }
