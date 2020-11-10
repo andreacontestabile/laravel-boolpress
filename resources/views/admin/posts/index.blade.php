@@ -18,9 +18,9 @@
                     <td>{{$article->content}}</td>
                     <td>{{$article->slug}}</td>
                     <td>
-                        <a href="#">Visualizza</a>
-                        <a href="#">Modifica</a>
-                        <a href="#">Elimina</a>
+                        <a href="{{route("admin.posts.show", $article->id)}}">Visualizza</a>
+                        <a href="{{route("admin.posts.edit", $article->id)}}">Modifica</a>
+                        <a href="{{route("admin.posts.destroy", $article->id)}}">Elimina</a>
                     </td>
                   </tr>
               @endforeach

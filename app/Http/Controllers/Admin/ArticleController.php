@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Article;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+
 
 class ArticleController extends Controller
 {
@@ -80,9 +82,10 @@ class ArticleController extends Controller
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function edit(Article $article)
+    public function edit($id)
     {
-        //
+        $article = Article::find($id);
+        return view("admin.posts.edit", compact("article"));
     }
 
     /**
@@ -92,9 +95,24 @@ class ArticleController extends Controller
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Article $article)
+    public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+
+        $article = Article::find($id);
+
+        $request->validate([
+            "title" => "required",
+            "slug" => [
+                "required",
+                Rule::unique('articles')->ignore($id)
+            ],
+            "content" => "required"
+        ]);
+
+        $article->update($data);
+
+        return redirect()->route("admin.posts.show", $id);
     }
 
     /**
