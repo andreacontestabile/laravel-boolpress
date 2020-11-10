@@ -55,6 +55,10 @@ class ArticleController extends Controller
         $newArticle->content = $data["content"];
 
         $newArticle->save();
+
+        $articleId = $newArticle->id;
+
+        return redirect()->route("admin.posts.show", $articleId);
     }
 
     /**
@@ -63,9 +67,11 @@ class ArticleController extends Controller
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function show(Article $article)
+    public function show($id)
     {
-        //
+        $article = Article::find($id);
+
+        return view("admin.posts.show", compact("article"));
     }
 
     /**
