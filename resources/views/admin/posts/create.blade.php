@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
   <h1>Crea un nuovo post</h1>
-  <form action="{{route('admin.posts.store')}}" method="POST">
+  <form action="{{route('admin.posts.store')}}" enctype="multipart/form-data" method="POST">
 
     @csrf
     @method("POST")
@@ -17,10 +17,14 @@
       <input type="text" class="form-control" name="slug" id="slug" placeholder="Inserisci lo slug">
     </div>
     <div class="form-group">
+      <label for="image">Slug</label>
+      <input type="file" class="form-control" name="image" id="image" accept="image/*" placeholder="Inserisci un'immagine">
+    </div>
+    <div class="form-group">
       <label for="content">Contenuto</label>
       <textarea class="form-control" name="content" id="content" placeholder="Inserisci il contenuto del post"></textarea>
     </div>
-    
+
     @if ($errors->any())
       <div class="alert alert-danger">
           <ul>

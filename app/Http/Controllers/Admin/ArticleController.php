@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 
 class ArticleController extends Controller
@@ -48,13 +49,18 @@ class ArticleController extends Controller
         $request->validate([
             "title" => "required",
             "slug" => "required|unique:articles",
-            "content" => "required"
+            "content" => "required",
+            "image" => "image"
         ]);
+
+        $imageOriginalName = $data["image"]->getClientOriginalName();
+        $imagePath = Storage::disk("public")->putFileAs("images", $data["image"], $imageOriginalName);
 
         $newArticle->user_id = Auth::id();
         $newArticle->title = $data["title"];
         $newArticle->slug = $data["slug"];
         $newArticle->content = $data["content"];
+        $newArticle->image = $imagePath;
 
         $newArticle->save();
 
@@ -107,6 +113,7 @@ class ArticleController extends Controller
                 "required",
                 Rule::unique('articles')->ignore($id)
             ],
+            "image" => "image",
             "content" => "required"
         ]);
 
