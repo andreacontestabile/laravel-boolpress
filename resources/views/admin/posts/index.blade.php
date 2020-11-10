@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container">
+      <a class="btn btn-primary btn-lg" href="{{route("admin.posts.create")}}">Crea un nuovo post</a>
         <table class="table">
             <thead>
               <tr>
@@ -17,10 +18,14 @@
                     <td>{{$article->title}}</td>
                     <td>{{$article->content}}</td>
                     <td>{{$article->slug}}</td>
-                    <td>
-                        <a href="{{route("admin.posts.show", $article->id)}}">Visualizza</a>
-                        <a href="{{route("admin.posts.edit", $article->id)}}">Modifica</a>
-                        <a href="{{route("admin.posts.destroy", $article->id)}}">Elimina</a>
+                    <td> 
+                        <a class="btn btn-primary btn-sm" href="{{route("admin.posts.show", $article->id)}}">Visualizza</a>
+                        <a class="btn btn-secondary btn-sm" href="{{route("admin.posts.edit", $article->id)}}">Modifica</a>
+                        <form action="{{route("admin.posts.destroy", $article->id)}}" method="POST">
+                          @csrf
+                          @method("DELETE")
+                          <input class="btn btn-danger btn-sm" type="submit" value="Elimina">
+                        </form>
                     </td>
                   </tr>
               @endforeach

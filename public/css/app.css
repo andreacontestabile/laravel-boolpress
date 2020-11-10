@@ -10903,3 +10903,11 @@ a.text-dark:focus {
   }
 }
 
+table {
+  margin-top: 20px;
+}
+
+table td a {
+  margin-bottom: 5px;
+}
+

@@ -121,8 +121,12 @@ class ArticleController extends Controller
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Article $article)
+    public function destroy($id)
     {
-        //
+        $article = Article::find($id);
+
+        $article->delete();
+
+        return redirect()->route("admin.posts.index");
     }
 }
