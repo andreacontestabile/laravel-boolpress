@@ -107,6 +107,8 @@ class ArticleController extends Controller
 
         $article = Article::find($id);
 
+        Storage::disk('public')->delete($article->image);
+
         $request->validate([
             "title" => "required",
             "slug" => [
@@ -117,7 +119,16 @@ class ArticleController extends Controller
             "content" => "required"
         ]);
 
-        $article->update($data);
+        $imageOriginalName = $data["image"]->getClientOriginalName();
+        $imagePath = Storage::disk("public")->putFileAs("images", $data["image"], $imageOriginalName);
+
+        $article->user_id = Auth::id();
+        $article->title = $data["title"];
+        $article->slug = $data["slug"];
+        $article->content = $data["content"];
+        $article->image = $imagePath;
+
+        $article->save();
 
         return redirect()->route("admin.posts.show", $id);
     }
@@ -131,6 +142,8 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         $article = Article::find($id);
+
+        Storage::disk('public')->delete($article->image);
 
         $article->delete();
 

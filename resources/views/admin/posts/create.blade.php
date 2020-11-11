@@ -17,7 +17,7 @@
       <input type="text" class="form-control" name="slug" id="slug" placeholder="Inserisci lo slug">
     </div>
     <div class="form-group">
-      <label for="image">Slug</label>
+      <label for="image">Immagine</label>
       <input type="file" class="form-control" name="image" id="image" accept="image/*" placeholder="Inserisci un'immagine">
     </div>
     <div class="form-group">
@@ -35,7 +35,8 @@
       </div>
     @endif
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary btn-success">Crea</button>
+    <a href={{route("admin.posts.index")}} class="btn btn-primary"><i class="fas fa-long-arrow-alt-left"></i> Indietro</a>
     
   </form>
 </div>
