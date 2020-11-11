@@ -30,6 +30,17 @@
       <label for="content">Contenuto</label>
       <textarea class="form-control" name="content" id="content" placeholder="Inserisci il contenuto del post">{{$article->content}}</textarea>
     </div>
+    <div>
+      <h4>Seleziona le tags</h4>
+      <div class="form-check">
+        @foreach($tags as $tag)
+        <span>
+          <input id="tag-{{$tag->id}}" name="tags[]" value="{{$tag->id}}" type="checkbox">
+          <label for="tag-{{$tag->id}}">{{$tag->name}}</label>
+        </span>
+        @endforeach
+      </div>
+    </div>
     
     @if ($errors->any())
       <div class="alert alert-danger">

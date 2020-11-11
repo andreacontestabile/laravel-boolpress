@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Article;
+use App\Tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Validation\Rule;
@@ -31,7 +32,9 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view("admin.posts.create");
+        $tags = Tag::all();
+
+        return view("admin.posts.create", compact("tags"));
     }
 
     /**
@@ -64,6 +67,8 @@ class ArticleController extends Controller
 
         $newArticle->save();
 
+        $newArticle->tags()->sync($data["tags"]);
+
         $articleId = $newArticle->id;
 
         return redirect()->route("admin.posts.show", $articleId);
@@ -78,8 +83,9 @@ class ArticleController extends Controller
     public function show($id)
     {
         $article = Article::find($id);
+        $tags = $article->tags;
 
-        return view("admin.posts.show", compact("article"));
+        return view("admin.posts.show", compact("article", "tags"));
     }
 
     /**
@@ -91,7 +97,9 @@ class ArticleController extends Controller
     public function edit($id)
     {
         $article = Article::find($id);
-        return view("admin.posts.edit", compact("article"));
+        $tags = Tag::all();
+
+        return view("admin.posts.edit", compact("article", "tags"));
     }
 
     /**

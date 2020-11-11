@@ -15523,3 +15523,11 @@ form {
   display: inline;
 }
 
+form .form-check span {
+  margin-right: 10px;
+}
+
+.actions {
+  margin-top: 40px;
+}
+

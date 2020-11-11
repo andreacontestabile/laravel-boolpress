@@ -20,5 +20,16 @@ table {
 
 form {
   display: inline;
+  
+  .form-check {
+    span {
+      margin-right: 10px;
+    }
+  }
 }
+
+.actions {
+  margin-top: 40px;
+}
+
 
