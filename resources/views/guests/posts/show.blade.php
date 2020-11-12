@@ -68,6 +68,15 @@
           <p>{{$article->content}}</p>
         </div>
       </div>
+      <div class="row">
+        @if(count($tags) > 0)
+          <div class="tags">
+            @foreach($tags as $tag)
+            <span class="badge badge-primary">{{$tag->name}}</span>
+            @endforeach
+          </div>
+        @endif
+      </div>
     </div>
   </article>
 
