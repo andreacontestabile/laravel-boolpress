@@ -53,25 +53,27 @@ class ArticleController extends Controller
             "title" => "required",
             "slug" => "required|unique:articles",
             "content" => "required",
-            "image" => "image"
+            "image" => "image|nullable"
         ]);
-
-        $imageOriginalName = $data["image"]->getClientOriginalName();
-        $imagePath = Storage::disk("public")->putFileAs("images", $data["image"], $imageOriginalName);
 
         $newArticle->user_id = Auth::id();
         $newArticle->title = $data["title"];
         $newArticle->slug = $data["slug"];
         $newArticle->content = $data["content"];
-        $newArticle->image = $imagePath;
+
+        if (isset($data["image"])) {
+
+            $imageOriginalName = $data["image"]->getClientOriginalName();
+            $imagePath = Storage::disk("public")->putFileAs("images", $data["image"], $imageOriginalName);
+            $newArticle->image = $imagePath;
+        }
+
 
         $newArticle->save();
 
         $newArticle->tags()->sync($data["tags"]);
 
-        $articleId = $newArticle->id;
-
-        return redirect()->route("admin.posts.show", $articleId);
+        return redirect()->route("admin.posts.show", $newArticle->id);
     }
 
     /**
@@ -153,6 +155,7 @@ class ArticleController extends Controller
 
         Storage::disk('public')->delete($article->image);
 
+        $article->tags()->detach();
         $article->delete();
 
         return redirect()->route("admin.posts.index");
