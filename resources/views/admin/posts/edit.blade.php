@@ -11,11 +11,11 @@
 
     <div class="form-group">
       <label for="title">Titolo</label>
-      <input type="text" class="form-control" name="title" id="title" value="{{$article->title}} "placeholder="Inserisci il titolo del post">
+      <input type="text" class="form-control" name="title" id="title" value="{{old("title") ?? $article->title}} "placeholder="Inserisci il titolo del post">
     </div>
     <div class="form-group">
       <label for="slug">Slug</label>
-      <input type="text" class="form-control" name="slug" id="slug" value="{{$article->slug}}" placeholder="Inserisci lo slug">
+      <input type="text" class="form-control" name="slug" id="slug" value="{{old("slug") ?? $article->slug}}" placeholder="Inserisci lo slug">
     </div>
     <div class="form-group">
       @if($article->image)
@@ -24,11 +24,11 @@
       </div>
       @endif
       <label for="image">Immagine</label>
-      <input type="file" class="form-control" name="image" id="image" accept="image/*" value="{{$article->image}}"placeholder="Inserisci un'immagine">
+      <input type="file" class="form-control" name="image" id="image" accept="image/*" placeholder="Inserisci un'immagine">
     </div>
     <div class="form-group">
       <label for="content">Contenuto</label>
-      <textarea class="form-control" name="content" id="content" placeholder="Inserisci il contenuto del post">{{$article->content}}</textarea>
+      <textarea class="form-control" name="content" id="content" placeholder="Inserisci il contenuto del post">{{old("content") ?? $article->content}}</textarea>
     </div>
     <div>
       <h4>Seleziona le tags</h4>
